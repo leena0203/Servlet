@@ -1,6 +1,8 @@
 package com.capgemini.firstservlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class LoginServlet
  */
 @WebServlet(description = "Login Servlet Testing", urlPatterns = { "/LoginServlet" }, initParams = {
-		@WebInitParam(name = "user", value = "Leena"), @WebInitParam(name = "password", value = "Leena") })
+		@WebInitParam(name = "user", value = "Leena"), @WebInitParam(name = "password", value = "Servlet@85") })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public LoginServlet() {
@@ -29,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		String userID = getServletConfig().getInitParameter("user");
 		String password = getServletConfig().getInitParameter("password");
-		if (userID.equals(user) && password.equals(pwd)) {
+		if (validateUserName(user)  && userID.equals(user) && password.equals(pwd)) {
 			request.setAttribute("user", user);
 			request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
 		} else {
@@ -39,6 +41,17 @@ public class LoginServlet extends HttpServlet {
 			rd.include(request, response);
 		}
 	}
+	
+	private boolean validateUserName(String name) {
+		String regex = "^([A-Z][A-Za-z]{2,})$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(name);
+		if (matcher.find()) {
+			return true;
+		}
+		return false;
+	}
+
 
 }
 
