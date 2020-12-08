@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class LoginServlet
  */
 @WebServlet(description = "Login Servlet Testing", urlPatterns = { "/LoginServlet" }, initParams = {
-		@WebInitParam(name = "user", value = "Leena"), @WebInitParam(name = "password", value = "Servlet@85") })
+		@WebInitParam(name = "user", value = "Leena"), @WebInitParam(name = "password", value = "Open@123") })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public LoginServlet() {
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		String userID = getServletConfig().getInitParameter("user");
 		String password = getServletConfig().getInitParameter("password");
-		if (validateUserName(user)  && userID.equals(user) && password.equals(pwd)) {
+		if (validateUserName(user) && validatePassword(pwd) && userID.equals(user) && password.equals(pwd)) {
 			request.setAttribute("user", user);
 			request.getRequestDispatcher("LoginSuccess.jsp").forward(request, response);
 		} else {
@@ -41,7 +41,15 @@ public class LoginServlet extends HttpServlet {
 			rd.include(request, response);
 		}
 	}
-	
+	private boolean validatePassword(String pwd) {
+		String regex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&])[A-Za-z0-9@$!%*?&]{8,}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(pwd);
+		if(matcher.find()) {
+			return true;
+		}
+		return false;
+	}
 	private boolean validateUserName(String name) {
 		String regex = "^([A-Z][A-Za-z]{2,})$";
 		Pattern pattern = Pattern.compile(regex);
