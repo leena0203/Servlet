@@ -4,14 +4,31 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+    <welcome-file>file name</welcome-file>
+</welcome-file-list>
+  
+  <!-- <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<display-name>LoginServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.capgemini.firstservlet.LoginServlet</servlet-class>
+  </servlet>
   <servlet>
   	<servlet-name>FirstServlet</servlet-name>
   	<display-name>FirstServlet</display-name>
   	<description></description>
   	<servlet-class>com.capgemini.firstservlet.FirstServlet</servlet-class>
   </servlet>
+ 
+  
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>FirstServlet</servlet-name>
   	<url-pattern>/FirstServlet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
+  
 </web-app>
